@@ -9,6 +9,6 @@ class NovelaAppWidgetPreviewActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.novela_appwidget_preview)
 
-        // Aquí puedes agregar lógica adicional para la vista previa del widget
+
     }
 }

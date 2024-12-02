@@ -10,13 +10,13 @@ class NovelaRemoteViewsFactory(private val context: Context, intent: Intent) : R
     private val novels = mutableListOf<String>()
 
     override fun onCreate() {
-        // Initialize the data set
+
         novels.add("Example Novela 1")
         novels.add("Example Novela 2")
     }
 
     override fun onDataSetChanged() {
-        // Update the data set
+
     }
 
     override fun onDestroy() {

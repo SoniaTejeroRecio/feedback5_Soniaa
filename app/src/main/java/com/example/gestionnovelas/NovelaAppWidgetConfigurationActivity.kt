@@ -17,17 +17,16 @@ class NovelaAppWidgetConfigurationActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.novela_appwidget_configuration)
 
-        // Set the result to CANCELED in case the user backs out
+
         setResult(RESULT_CANCELED)
 
-        // Find the widget id from the intent
+
         val intent = intent
         val extras = intent.extras
         if (extras != null) {
             appWidgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
         }
 
-        // If this activity was started with an invalid appWidgetId, finish with an error.
         if (appWidgetId == AppWidgetManager.INVALID_APPWIDGET_ID) {
             finish()
             return

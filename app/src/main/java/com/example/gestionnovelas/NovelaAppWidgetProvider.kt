@@ -23,17 +23,17 @@ class NovelaAppWidgetProvider : AppWidgetProvider() {
         fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
             val views = RemoteViews(context.packageName, R.layout.novela_loading_appwidget)
 
-            // Set the text for the widget
+
             views.setTextViewText(R.id.novela_title, "Example Novela Title")
             views.setTextViewText(R.id.novela_editorial, "Example Novela Editorial")
             views.setTextViewText(R.id.novela_details, "Example Novela Details")
 
-            // Create an Intent to launch MainActivity when clicked
+
             val intent = Intent(context, MainActivity::class.java)
             val pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
             views.setOnClickPendingIntent(R.id.novela_title, pendingIntent)
 
-            // Update the widget
+
             appWidgetManager.updateAppWidget(appWidgetId, views)
         }
     }
@@ -42,7 +42,6 @@ class NovelaAppWidgetProvider : AppWidgetProvider() {
         super.onReceive(context, intent)
         if (intent.action == "com.example.gestionnovelas.CHECKBOX_CHANGED") {
             val isChecked = intent.getBooleanExtra(RemoteViews.EXTRA_CHECKED, false)
-            // Handle checkbox state change
         }
     }
 }

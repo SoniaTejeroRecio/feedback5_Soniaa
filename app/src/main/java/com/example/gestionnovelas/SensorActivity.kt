@@ -43,7 +43,7 @@ class SensorActivity : Activity(), SensorEventListener {
             val y = it.values[1]
             val z = it.values[2]
 
-            // Detectar movimiento y cambiar el color de fondo
+            //Detectar movimiento y cambiar el color de fondo
             if (x > 5 || y > 5 || z > 5) {
                 layout.setBackgroundColor(Color.RED)
             } else {
@@ -53,6 +53,6 @@ class SensorActivity : Activity(), SensorEventListener {
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        // No se necesita implementar
+
     }
 }

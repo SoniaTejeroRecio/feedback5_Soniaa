@@ -5,6 +5,6 @@
     android:layout_height="match_parent"
     android:background="@android:color/white">
 
-    <!-- Otros elementos de la interfaz pueden ir aquí -->
+
 
 </RelativeLayout>

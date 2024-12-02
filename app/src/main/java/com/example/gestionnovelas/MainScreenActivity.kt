@@ -11,6 +11,11 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
+import java.util.concurrent.TimeUnit
+import java.io.ByteArrayOutputStream
+import java.util.zip.GZIPOutputStream
 
 class MainScreenActivity : AppCompatActivity(), ItemListFragment.OnItemSelectedListener, SensorEventListener {
 
@@ -30,6 +35,10 @@ class MainScreenActivity : AppCompatActivity(), ItemListFragment.OnItemSelectedL
                 .replace(R.id.fragment_container, ItemListFragment())
                 .commit()
         }
+
+
+        val updateRequest = PeriodicWorkRequestBuilder<UpdateWorker>(15, TimeUnit.MINUTES).build()
+        WorkManager.getInstance(this).enqueue(updateRequest)
     }
 
     override fun onResume() {
@@ -42,6 +51,11 @@ class MainScreenActivity : AppCompatActivity(), ItemListFragment.OnItemSelectedL
     override fun onPause() {
         super.onPause()
         sensorManager.unregisterListener(this)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
@@ -67,5 +81,14 @@ class MainScreenActivity : AppCompatActivity(), ItemListFragment.OnItemSelectedL
             .replace(R.id.fragment_container, detailFragment)
             .addToBackStack(null)
             .commit()
+    }
+
+
+    private fun compressData(data: String): ByteArray {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        val gzipOutputStream = GZIPOutputStream(byteArrayOutputStream)
+        gzipOutputStream.write(data.toByteArray())
+        gzipOutputStream.close()
+        return byteArrayOutputStream.toByteArray()
     }
 }

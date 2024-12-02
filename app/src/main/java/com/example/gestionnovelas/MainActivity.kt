@@ -7,8 +7,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.work.WorkManager
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
+import java.io.ByteArrayOutputStream
+import java.util.zip.GZIPOutputStream
 
 class MainActivity : AppCompatActivity() {
 
@@ -16,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private val db = FirebaseFirestore.getInstance()
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Configuración del tema antes de cargar la vista
+
         setTheme(R.style.Theme_GestionNovelas)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,6 +54,9 @@ class MainActivity : AppCompatActivity() {
         addNovelButton.setOnClickListener {
             showAddNovelDialog()
         }
+
+
+        WorkManagerSetup.scheduleWork(this)
     }
 
     private fun showAddNovelDialog() {
@@ -96,6 +102,15 @@ class MainActivity : AppCompatActivity() {
             in 12..17 -> "Buenas tardes"
             else -> "Buenas noches"
         }
+    }
+
+
+    private fun compressData(data: String): ByteArray {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        val gzipOutputStream = GZIPOutputStream(byteArrayOutputStream)
+        gzipOutputStream.write(data.toByteArray())
+        gzipOutputStream.close()
+        return byteArrayOutputStream.toByteArray()
     }
 }
 
